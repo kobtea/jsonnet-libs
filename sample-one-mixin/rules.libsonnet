@@ -1,6 +1,6 @@
 {
   _config+:: {
-    SampleOneSelector: 'job="sample-one"',
+    sampleOneSelector: 'job="sample-one"',
   },
 
   prometheusRules+:: {
@@ -11,7 +11,7 @@
           {
             record: 'instance_path:one_requests:rate5m',
             expr: |||
-              rate(one_requests_total{%(SampleOneSelector)s}[5m])
+              rate(one_requests_total{%(sampleOneSelector)s}[5m])
             ||| % $._config,
           },
         ],

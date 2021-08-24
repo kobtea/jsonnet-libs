@@ -3,14 +3,14 @@ local sampleTwo = import '../../sample-two-mixin/mixin.libsonnet';
 
 sampleOne {
   _config+:: {
-    SampleOneSelector: 'job="sample-one-mod"',
-    SampleOneGrafanaFolder: 'sample-one-mod',
+    sampleOneSelector: 'job="sample-one-mod"',
+    sampleOneGrafanaFolder: 'sample-one-mod',
   },
 } +
 sampleTwo {
   _config+:: {
-    SampleTwoSelector: 'job="sample-two-mod"',
-    SampleTwoGrafanaFolder: 'sample-two-mod',
+    sampleTwoSelector: 'job="sample-two-mod"',
+    sampleTwoGrafanaFolder: 'sample-two-mod',
   },
   // TODO: override alert
   // TODO: override rule

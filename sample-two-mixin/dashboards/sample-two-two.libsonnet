@@ -11,7 +11,7 @@ local graphPanel = grafana.graphPanel;
   },
 
   grafanaDashboards+:: {
-    "'%(sampleTwoGrafanaFolder)s/sample-two-two.json' % $._config":
+    ['%(sampleTwoGrafanaFolder)s/sample-two-two.json' % $._config]:
       dashboard.new(
         'sample two two',
         uid='sample-two-two',

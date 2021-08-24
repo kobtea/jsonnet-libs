@@ -1,6 +1,6 @@
 {
   _config+:: {
-    SampleTwoSelector: 'job="sample-two"',
+    sampleTwoSelector: 'job="sample-two"',
   },
 
   prometheusRules+:: {
@@ -11,7 +11,7 @@
           {
             record: 'instance_path:two_requests:rate5m',
             expr: |||
-              rate(two_requests_total{%(SampleTwoSelector)s}[5m])
+              rate(two_requests_total{%(sampleTwoSelector)s}[5m])
             ||| % $._config,
           },
         ],

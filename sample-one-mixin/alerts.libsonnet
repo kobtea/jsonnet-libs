@@ -1,6 +1,6 @@
 {
   _config+:: {
-    SampleOneSelector: 'job="sample-one"',
+    sampleOneSelector: 'job="sample-one"',
   },
 
   prometheusAlerts+:: {
@@ -11,7 +11,7 @@
           {
             alert: 'SampleOneUp',
             expr: |||
-              up{%(SampleOneSelector)s} != 1
+              up{%(sampleOneSelector)s} != 1
             ||| % $._config,
             'for': '1m',
             labels: {
