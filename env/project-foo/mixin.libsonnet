@@ -25,6 +25,17 @@ sampleTwo {
       },
     ]),
 
-  // TODO: override rule
+  // override rule
+  prometheusRules+::
+    utils.overrideRules([
+      {
+        record: 'instance_path:two_requests:rate5m',
+        expr: |||
+          rate(two_requests_total{%(sampleTwoSelector)s}[10m])
+        ||| % $._config,
+      },
+    ]),
+
+
   // TODO: override dashboard
 }
