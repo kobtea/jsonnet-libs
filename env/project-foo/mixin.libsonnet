@@ -1,3 +1,4 @@
+local utils = import '../../lib/utils.libsonnet';
 local sampleOne = import '../../sample-one-mixin/mixin.libsonnet';
 local sampleTwo = import '../../sample-two-mixin/mixin.libsonnet';
 
@@ -12,7 +13,18 @@ sampleTwo {
     sampleTwoSelector: 'job="sample-two-mod"',
     sampleTwoGrafanaFolder: 'sample-two-mod',
   },
-  // TODO: override alert
+
+  // override alert
+  prometheusAlerts+::
+    utils.overrideAlerts([
+      {
+        alert: 'SampleTwoUp',
+        expr: |||
+          up{%(sampleTwoSelector)s} == 0
+        ||| % $._config,
+      },
+    ]),
+
   // TODO: override rule
   // TODO: override dashboard
 }
