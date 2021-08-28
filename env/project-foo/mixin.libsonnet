@@ -37,5 +37,47 @@ sampleTwo {
     ]),
 
 
-  // TODO: override dashboard
+  // override dashboard
+  grafanaDashboards+::
+    local dashboards = super.grafanaDashboards;
+    local d1 = '%(sampleTwoGrafanaFolder)s/sample-two-one.json' % $._config;
+    {
+      [d1]:
+        local out1 = std.foldl(
+          function(acc, panel) acc + utils.overrideDashboardPanel(panel, acc),
+          [
+            {
+              title: 'Requests',
+              format: 'none',
+            },
+            {
+              title: 'Requests2',
+              format: 'none',
+            },
+          ],
+          dashboards[d1],
+        );
+        local out2 = std.foldl(
+          function(acc, elm) acc + utils.overrideDashboardPanelTarget(elm.target, elm.title, acc),
+          [
+            {
+              title: 'Requests',
+              target: {
+                refId: 'A',
+                expr: 'avg(instance_path:one_requests:rate5m)',
+              },
+            },
+            {
+              title: 'Requests2',
+              target: {
+                refId: 'A',
+                expr: 'max(instance_path:one_requests:rate5m)',
+              },
+            },
+          ],
+          out1,
+        );
+        out2,
+    },
+
 }

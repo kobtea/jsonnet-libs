@@ -34,7 +34,7 @@ local graphPanel = grafana.graphPanel;
       )
       .addRow(
         row.new()
-        .addPanel(
+        .addPanels([
           graphPanel.new(
             'Requests',
             datasource='$datasource',
@@ -43,8 +43,17 @@ local graphPanel = grafana.graphPanel;
           )
           .addTarget(prometheus.target(
             'instance_path:two_requests:rate5m',
-          ))
-        )
+          )),
+          graphPanel.new(
+            'Requests2',
+            datasource='$datasource',
+            span=6,
+            format='short',
+          )
+          .addTarget(prometheus.target(
+            'instance_path:two_requests:rate5m',
+          )),
+        ])
       ),
   },
 }
