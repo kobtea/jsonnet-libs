@@ -1,6 +1,6 @@
 local utils = import '../../lib/utils.libsonnet';
-local sampleOne = import '../../sample-one-mixin/mixin.libsonnet';
-local sampleTwo = import '../../sample-two-mixin/mixin.libsonnet';
+local sampleOne = import '../../mixin/sample-one-mixin/mixin.libsonnet';
+local sampleTwo = import '../../mixin/sample-two-mixin/mixin.libsonnet';
 
 sampleOne {
   _config+:: {
