@@ -14,17 +14,17 @@ local ku = import 'github.com/kubernetes-monitoring/kubernetes-mixin/lib/utils.l
       if baseRule.alert == rule.alert
       then rule
       else baseRule;
-    self.mapAlert(f),
+    $.mapAlert(f),
 
   overrideAlert(rule)::
     local f(baseRule) =
       if baseRule.alert == rule.alert
       then baseRule + rule
       else baseRule;
-    self.mapAlert(f),
+    $.mapAlert(f),
 
   overrideAlerts(rules)::
-    local f(acc, rule) = acc + self.overrideAlert(rule);
+    local f(acc, rule) = acc + $.overrideAlert(rule);
     std.foldl(f, rules, {}),
 
   // Rule
@@ -39,17 +39,17 @@ local ku = import 'github.com/kubernetes-monitoring/kubernetes-mixin/lib/utils.l
       if baseRule.record == rule.record
       then rule
       else baseRule;
-    self.mapRule(f),
+    $.mapRule(f),
 
   overrideRule(rule)::
     local f(baseRule) =
       if baseRule.record == rule.record
       then baseRule + rule
       else baseRule;
-    self.mapRule(f),
+    $.mapRule(f),
 
   overrideRules(rules)::
-    local f(acc, rule) = acc + self.overrideRule(rule);
+    local f(acc, rule) = acc + $.overrideRule(rule);
     std.foldl(f, rules, {}),
 
   // Dashboard
