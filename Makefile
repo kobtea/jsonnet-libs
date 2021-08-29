@@ -1,7 +1,22 @@
 JSONNET_FMT := jsonnetfmt -n 2 --max-blank-lines 2 --string-style s --comment-style s
+
 fmt:
 	@find . -name 'vendor' -prune -o -name '*.libsonnet' -print -o -name '*.jsonnet' -print | \
-	ARG=project-fooxargs -n 1 -- $(JSONNET_FMT) -i
+	xargs $(JSONNET_FMT) -i
+
+lint:
+	@res=0; \
+	for i in $$(find . -name 'vendor' -prune -o -name '*.libsonnet' -print -o -name '*.jsonnet' -print); do \
+		jsonnet-lint -J vendor $$i || res=1; \
+		$(JSONNET_FMT) $$i | diff -u $$i - || res=1; \
+	done; \
+	for i in $$(find . -name 'vendor' -prune -o -name 'mixin.libsonnet' -print); do \
+		mixtool lint -J vendor $$i || res=1; \
+	done; \
+	for i in $$(find ./dist -name 'vendor' -prune -o -name '*.y*ml' -print); do \
+		promtool check rules $$i || res=1; \
+	done; \
+	exit $$res
 
 generate-alerts:
 	@test ${ARG} \
