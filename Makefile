@@ -1,5 +1,7 @@
 JSONNET_FMT := jsonnetfmt -n 2 --max-blank-lines 2 --string-style s --comment-style s
 
+PHONY: fmt lint generate-alerts generate-rules generate-dashboards generate watch
+
 fmt:
 	@find . -name 'vendor' -prune -o -name '*.libsonnet' -print -o -name '*.jsonnet' -print | \
 	xargs $(JSONNET_FMT) -i
@@ -43,3 +45,6 @@ generate-dashboards:
 	|| echo 'need entrypoint like: make generate-dashboards ARG=project-foo'
 
 generate: generate-alerts generate-rules generate-dashboards
+
+watch:
+	@fswatch -0 -r --event=Updated -e ".*" -i "sonnet$$" . | xargs -0 -I {} bash -c "make fmt && make lint && make generate"
