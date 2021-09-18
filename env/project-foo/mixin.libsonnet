@@ -1,3 +1,4 @@
+local dEnforce = import '../../lib/dashboard-enforce.libsonnet';
 local utils = import '../../lib/utils.libsonnet';
 local sampleOne = import '../../mixin/sample-one-mixin/mixin.libsonnet';
 local sampleTwo = import '../../mixin/sample-two-mixin/mixin.libsonnet';
@@ -80,4 +81,4 @@ sampleTwo {
         out2,
     },
 
-}
+} + dEnforce
